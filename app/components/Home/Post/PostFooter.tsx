@@ -49,11 +49,16 @@ export default function PostFooter({ caption, username, id, postOwnerId, postIma
     return unSub;
   }, [user, id]);
   useEffect(() => {
+    if (!user?.uid) return;
+    
     const docRef = doc(db, "posts", id);
     const unSub = onSnapshot(docRef, (snapshot) => {
-      const { likes } = snapshot.data() as IPost;
+      const data = snapshot.data() as IPost;
+      if (!data) return;
+      
+      const { likes } = data;
       const userLiked: boolean =
-        likes.findIndex((userLike) => userLike === (user as User).uid) !== -1;
+        likes.findIndex((userLike) => userLike === user.uid) !== -1;
       setHasLiked(userLiked);
       setLikes(likes.length);
     });

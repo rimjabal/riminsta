@@ -5,11 +5,15 @@ type props ={
   username: string;
   photoUrl: string;
   onPress?: () => void;
+  onMenuPress?: () => void;
+  isOwnPost?: boolean;
 }
 export default function PostHeader({
     username,
     photoUrl,
     onPress,
+    onMenuPress,
+    isOwnPost,
   }: props) {
     return (
       <View style={PostHeaderStyles.container}>
@@ -20,13 +24,15 @@ export default function PostHeader({
           />
           <Text style={[PostHeaderStyles.profileUsername,typographyStyles.bold]}>{username}</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <MaterialCommunityIcons
-            name="dots-horizontal"
-            size={20}
-            color="white"
-          />
-        </TouchableOpacity>
+        {isOwnPost && (
+          <TouchableOpacity onPress={onMenuPress}>
+            <MaterialCommunityIcons
+              name="dots-horizontal"
+              size={20}
+              color="white"
+            />
+          </TouchableOpacity>
+        )}
       </View>
     );
   }

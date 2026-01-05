@@ -45,7 +45,7 @@ export default function Settings() {
 
   async function fetchUserData() {
     try {
-      if (!user) return;
+      if (!user?.uid) return;
       
       // Fetch user posts
       const postsRef = collection(db, "posts");
@@ -102,6 +102,7 @@ export default function Settings() {
   }
 
   const onRefresh = useCallback(() => {
+    if (!user?.uid) return;
     setRefreshing(true);
     fetchUserData();
   }, [user]);
@@ -133,13 +134,13 @@ export default function Settings() {
   }
 
   function handleFollowers() {
-    if (user) {
+    if (user?.uid) {
       navigation.navigate("FollowersList", { userId: user.uid, type: "followers" });
     }
   }
 
   function handleFollowing() {
-    if (user) {
+    if (user?.uid) {
       navigation.navigate("FollowersList", { userId: user.uid, type: "following" });
     }
   }

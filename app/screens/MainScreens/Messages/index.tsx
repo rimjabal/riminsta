@@ -29,7 +29,7 @@ export default function Messages() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user?.uid) return;
 
     const conversationsRef = collection(db, "conversations");
     const q = query(

@@ -25,16 +25,7 @@ import useAuth, { authValue } from "../../../hooks/useAuth";
 import { MainTabsParamList } from "../Main";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import Loader from "../../../components/Shared/Loader";
-function Options({ option }: { option: string }) {
-  return (
-    <TouchableOpacity style={styles.optionsContainer}>
-      <Text style={[{ color: "white", fontSize: 18 }, typographyStyles.md]}>
-        {option}
-      </Text>
-      <MaterialIcons name="keyboard-arrow-right" size={20} color="white" />
-    </TouchableOpacity>
-  );
-}
+
 export default function Post({
   navigation,
 }: BottomTabScreenProps<MainTabsParamList, "Post">) {
@@ -42,13 +33,6 @@ export default function Post({
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
   const [caption, setCaption] = useState("");
-  const OptionData = [
-    "Tag people",
-    "Add reminder",
-    "Add location",
-    "Add music",
-    "Advanced Settings",
-  ];
   async function requestPermission() {
     const cameraRequest = await ImagePicker.requestCameraPermissionsAsync();
     const libraryRequest =
@@ -205,11 +189,6 @@ export default function Post({
             />
           </View>
         </View>
-        <FlatList
-          data={OptionData}
-          renderItem={({ item }) => <Options option={item} />}
-          keyExtractor={(_, index) => index.toString()}
-        />
         <TouchableOpacity style={styles.shareBtnContainer} onPress={sharePost}>
           <Text style={[styles.shareBtn, typographyStyles.bold]}>Share</Text>
         </TouchableOpacity>
